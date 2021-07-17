@@ -133,29 +133,6 @@ public abstract class AndroidGame extends Activity implements Game {
                             if(readMessage.charAt(t) == 'a' | readMessage.charAt(t) >= 0 | readMessage.charAt(t) <= 9 | readMessage.charAt(t) == '-'){
                                 if (readMessage.charAt(t) == 'a') {         //Next char is a number
                                     t++;
-                                    /*
-                                    if(readMessage.charAt(t) == '-') {
-                                        t++;
-                                        bluetoothVal2 = readMessage.charAt((t));
-                                        number100 = (Character.getNumericValue(bluetoothVal2)) * 100;
-                                        t++;
-                                        bluetoothVal1 = readMessage.charAt((t));
-                                        number10 = (Character.getNumericValue(bluetoothVal1)) * 10;
-                                        t++;
-                                        bluetoothVal0 = readMessage.charAt((t));
-                                        number1 = Character.getNumericValue(bluetoothVal0);
-                                        if ((number1000 + number100 + number10 + number1) != 0) {
-                                                    //Still stops with the static variable commented out. The static variable isn't the problem
-                                                  GameScreen.A2DVal[j] = (((number1000 + number100 + number10 + number1) * -1) / 10) + 250;
-                                            j++;
-                                            if(j > 299){
-                                                j = 1;
-                                            }
-                                        }
-                                    }
-                                    else {
-                                    *
-                                     */
                                     bluetoothVal2 = readMessage.charAt((t));
                                     number100 = (Character.getNumericValue(bluetoothVal2)) * 100;
                                     t++;
@@ -164,22 +141,20 @@ public abstract class AndroidGame extends Activity implements Game {
                                     t++;
                                     bluetoothVal0 = readMessage.charAt((t));
                                     number1 = Character.getNumericValue(bluetoothVal0);
-                                    if ((number1000 + number100 + number10 + number1) > 0) {
-                                             GameScreen.A2DVal[j] = ((number1000 + number100 + number10 + number1)*-1) + 250;
+                                    GameScreen.A2DVal[j] = ((number100 + number10 + number1)*-1) + 160;
                                         j++;
-                                        if(landscape == 0) {
-                                            if (j > 299) {
+                                   //     if(landscape == 0) {
+                                           if (j > 398)
                                                 j = 1;
                                             }
-                                        }
-                                        else{
-                                            if(j > 499)
-                                                j = 1;
-                                        }
-                                    }
+                                     //   }
+                                    //    else{
+                                    //        if(j > 499)
+                                   //             j = 1;
+                                  //      }
+                                  //  }
                                 }
                             }
-                        }
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
