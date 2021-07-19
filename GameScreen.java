@@ -11,15 +11,16 @@ import com.esark.framework.Screen;
 import java.util.List;
 
 //import static com.esark.MuscleVoltSplitScreenMarkI.FFT;
+import static com.esark.MuscleVoltSplitScreenMarkI.FFT.fft;
 import static com.esark.framework.AndroidGame.landscape;
 
 public class GameScreen extends Screen{
     Context context = null;
     int xStart = 0, xStop = 0;
-    public static double [] A2DVal = new double[400];
+    public static double [] A2DVal = new double[64];
     public double [] testArray = {0.1, 0.2, 0.1, 0.5, 0.7, 0, 0.9, 0.6};
-    Complex[] x = new Complex[8];
-
+    Complex[] x = new Complex[64];
+    double [] psd = new double[64];
     //Constructor
     public GameScreen(Game game) {
         super(game);
@@ -67,6 +68,19 @@ public class GameScreen extends Screen{
         g.drawPixmap(Assets.splitScreen, 0, 0);
         xStart = 0;
         xStop = 1;
+        Complex[] cinput = new Complex[64];
+        for (int m = 0; m < 64; m++) {
+            if(m == 0){
+                g.drawLine(xStart, ((int)A2DVal[m]), xStop, (int)(A2DVal[m]), 0);
+            }
+            else{
+                g.drawLine(xStart, ((int)A2DVal[m - 1]), xStop, (int)(A2DVal[m]), 0);
+            }
+
+            cinput[m] = new Complex(A2DVal[m], 0.0);
+            xStart = xStop;
+            xStop++;
+        }
         /*
         for(int q = 0; q < 8; q++){
             x[q] = new Complex(testArray[q], 0);
@@ -75,7 +89,8 @@ public class GameScreen extends Screen{
         Complex[] y = fft(x);
         *
          */
-        int N = 8;
+        /*
+        int N = 64;
         FFT fft = new FFT(N);
         double[] re = new double[N];
         double[] im = new double[N];
@@ -87,17 +102,37 @@ public class GameScreen extends Screen{
         beforeAfter(fft, re, im);
 
         fft.fft(re,im);
+*/
+      //  double[] input = {0.01, 1.0, 10.0, 25.3, 0.0, 6.5, 0.36, 9.0};
 
-        for (int m = 1; m < 400; m++) {
-            g.drawLine(xStart, ((int)A2DVal[m - 1]), xStop, (int)(A2DVal[m]), 0);
+       // Complex[] cinput = new Complex[400];
+        //for (int i = 0; i < 400; i++)
+          //  cinput[i] = new Complex(A2DVal[i], 0.0);
+      //  Complex[] cinput = new Complex[input.length];
+        //for (int i = 0; i < input.length; i++)
+          //  cinput[i] = new Complex(input[i], 0.0);
+
+        fft(cinput);
+        int u = 0;
+        System.out.println("Results:");
+        for (Complex c : cinput) {
+            System.out.println(c);
+            psd[u] = ((c.re*c.re + c.im*c.im)/-8) + 600;
+            System.out.println("PSD:");
+            System.out.println(psd[u]);
+            u++;
+        }
+
+
+        xStart = 50;
+        xStop = 51;
+        for(int i=1; i < 64; i++){
+            g.drawBlackLine(xStart, (int)psd[i - 1], xStop, (int)psd[i], 0);
             xStart = xStop;
             xStop++;
         }
-        xStart = 0;
-        xStop = 1;
-        for(int i=0; i<re.length; i++){
-            g.drawBlackLine(0,600, 420, (int)(re[i]*100), 0);
-        }
+
+
       //  }
         /*
         else if(landscape == 1)
@@ -121,7 +156,7 @@ public class GameScreen extends Screen{
 
         //    g.drawLine(10,10,700, 900, 0);
     }
-
+/*
     private void printReIm(double[] re, double[] im) {
         System.out.print("Re: [");
         for(int i=0; i<re.length; i++)
@@ -137,12 +172,12 @@ public class GameScreen extends Screen{
     private void beforeAfter(FFT fft, double[] re, double[] im) {
         System.out.println("Before: ");
         printReIm(re, im);
-        fft.fft(re, im);
+        fft(re, im);
         System.out.println("After: ");
         printReIm(re, im);
     }
 
-
+*/
     @Override
     public void present(float deltaTime) {
         Graphics g = game.getGraphics();
