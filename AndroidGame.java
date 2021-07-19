@@ -144,7 +144,7 @@ public abstract class AndroidGame extends Activity implements Game {
                                     GameScreen.A2DVal[j] = ((number100 + number10 + number1)*-1) + 160;
                                         j++;
                                    //     if(landscape == 0) {
-                                           if (j > 63)
+                                           if (j > 447)
                                                 j = 0;
                                             }
                                      //   }
