@@ -56,10 +56,10 @@ public class GameScreen extends Screen {
         xStart = 0;
         xStop = 1;
         int u = 0;
-        for (int y = 1; y < 8; y++) {
-            Complex[] cinput = new Complex[64];
-            for (int m = 0; m < 64; m++) {
-                cinput[m] = new Complex(A2DVal[m * y], 0.0);
+     //   for (int y = 1; y < 8; y++) {
+            Complex[] cinput = new Complex[256];        //256 works
+            for (int m = 0; m < 256; m++) {
+                cinput[m] = new Complex(A2DVal[m], 0.0);
                 xStart = xStop;
                 xStop++;
             }
@@ -68,14 +68,14 @@ public class GameScreen extends Screen {
             System.out.println("Results:");
             for (Complex c : cinput) {
                 System.out.println(c);
-                psd[u] = ((c.re * c.re + c.im * c.im) / -800000) + 600;
+                psd[u] = ((c.re * c.re + c.im * c.im) / -800000) + 640;
                 System.out.println("PSD:");
                 System.out.println(psd[u]);
                 u++;
             }
             xStart = 50;
             xStop = 51;
-            for (int i = 1; i < 448; i++) {
+            for (int i = 1; i < 420; i++) {
                 g.drawBlackLine(xStart, (int) psd[i - 1], xStop, (int) psd[i], 0);
                 xStart = xStop;
                 xStop++;
@@ -85,7 +85,7 @@ public class GameScreen extends Screen {
                     g.drawLine(xStart, ((int) A2DVal[i - 1]), xStop, (int) (A2DVal[i]), 0);
                 }
             }
-        }
+       // }
     }
 
 

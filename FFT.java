@@ -24,6 +24,9 @@ public class FFT {
 
     static void fft(Complex[] buffer) {
 
+      //  int bits = (int) (log(buffer.length) / log(2));
+    //    for (int j = 1; j < buffer.length / 2; j++) {
+
         int bits = (int) (log(buffer.length) / log(2));
         for (int j = 1; j < buffer.length / 2; j++) {
 
