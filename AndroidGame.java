@@ -141,12 +141,14 @@ public abstract class AndroidGame extends Activity implements Game {
                                     t++;
                                     bluetoothVal0 = readMessage.charAt((t));
                                     number1 = Character.getNumericValue(bluetoothVal0);
-                                    GameScreen.A2DVal[j] = ((number100 + number10 + number1)*-1) + 160;
+                                    if ((number100 + number10 + number1) >= 0) {
+                                        GameScreen.A2DVal[j] = ((number100 + number10 + number1) * -1) + 278;
                                         j++;
-                                   //     if(landscape == 0) {
-                                           if (j > 447)
-                                                j = 0;
-                                            }
+                                        //     if(landscape == 0) {
+                                        if (j > 447)
+                                            j = 0;
+                                    }
+                                }
                                      //   }
                                     //    else{
                                     //        if(j > 499)
